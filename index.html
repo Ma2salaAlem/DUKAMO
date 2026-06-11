@@ -19,6 +19,7 @@
   --accent:#c9a45c;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
 html,body{background:var(--bg);color:var(--cream);font-family:'Inter',sans-serif;}
 body.am{font-family:'Noto Sans Ethiopic','Inter',sans-serif;}
 .serif{font-family:'Cormorant Garamond',serif;}
@@ -65,6 +66,7 @@ header{
   flex:0 0 auto;background:none;border:1px solid var(--line);color:var(--muted);
   padding:7px 15px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;
   font-family:inherit;white-space:nowrap;letter-spacing:.3px;
+  text-decoration:none;display:inline-flex;align-items:center;
 }
 .tab.active{background:var(--cream);color:#1c1f1b;border-color:var(--cream);font-weight:600;}
 
@@ -81,7 +83,7 @@ header{
 
 /* ---------- SECTIONS ---------- */
 main{padding:8px 16px 120px;}
-.section{margin-top:26px;}
+.section{margin-top:26px;scroll-margin-top:130px;}
 .section-head{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
 .section-head h3{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;letter-spacing:1px;}
 .section-head .ln{flex:1;height:1px;background:var(--line);}
@@ -402,15 +404,15 @@ function buildTabs(){
   const wrap=document.getElementById('tabs');
   wrap.innerHTML='';
   MENU.forEach((sec,i)=>{
-    const b=document.createElement('button');
-    b.className='tab'+(i===0?' active':'');
-    b.textContent=t({en:sec.en,am:sec.am});
-    b.onclick=()=>{
+    const a=document.createElement('a');
+    a.className='tab'+(i===0?' active':'');
+    a.href='#sec-'+sec.id;
+    a.textContent=t({en:sec.en,am:sec.am});
+    a.onclick=()=>{
       document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById('sec-'+sec.id).scrollIntoView({behavior:'smooth',block:'start'});
+      a.classList.add('active');
     };
-    wrap.appendChild(b);
+    wrap.appendChild(a);
   });
 }
 
